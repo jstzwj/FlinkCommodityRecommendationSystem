@@ -4,7 +4,7 @@ package com.ly.recommend_backend.service;
 import com.ly.recommend_backend.dao.ProductInterface;
 import com.ly.recommend_backend.util.HbaseClient;
 import com.ly.recommend_backend.entity.ProductEntity;
-import javafx.util.Pair;
+// import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,24 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
+
+class Pair<T,U> {
+    private final T key;
+    private final U value;
+
+    public Pair(T key, U value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public T getKey() {
+        return this.key;
+    }
+
+    public U getValue() {
+        return this.value;
+    }
+}
 
 @Service
 public class RecommendService {

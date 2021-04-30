@@ -1,13 +1,5 @@
 version: "3.9"
 services:
-  frontend:
-    build: ./recommend_front
-    ports:
-      - "8080:8080"
-  backend:
-    build: ./recommend_backend
-    ports:
-      - "8090:8090"
   mysql:
     image: "mysql:8.0.24"
     container_name: mysql-db # 容器名
@@ -17,9 +9,20 @@ services:
       MYSQL_ROOT_PASSWORD: root #root管理员用户密码
       MYSQL_USER: test   #创建test用户
       MYSQL_PASSWORD: test  #设置test用户的密码
+      MYSQL_DATABASE: test
     ports:
       - '3306:3306'  #host物理直接映射端口为6606
-
+    container_name: mysql
+  frontend:
+    build: ./recommend_front
+    ports:
+      - "8080:8080"
+  backend:
+    build: ./recommend_backend
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mysql
   flink:
     image: "flink:1.12.2-scala_2.11-java8"
   redis:
@@ -28,8 +31,8 @@ services:
     image: "zookeeper:latest"
     restart: always
     hostname: zookeeper
-    ports:
-      - "2181:2181"
+    expose:
+      - "2181"
     container_name: zookeeper
   kafka1:
     image: "wurstmeister/kafka:latest"

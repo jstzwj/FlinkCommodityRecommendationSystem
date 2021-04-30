@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1
-FROM maven:3.8.1-jdk-8
+FROM shinyay/docker-mvn-jdk8:3.6.3
 WORKDIR /code
 COPY . .
 RUN mvn install
-RUN mvn spring-boot:run
+RUN mvn clean compile
+CMD [ "mvn", "spring-boot:run" ]
